@@ -1,0 +1,698 @@
+/* ==========================================================================
+   IBT — Customer Portal / Marketplace theme
+   --------------------------------------------------------------------------
+   Target:   https://ibttest.broadbandportal.net   (COS Systems portal)
+   Setting:  TemplateCSSURL
+   Version:  4.0
+
+   Brand values sampled from the live IBT theme at https://ibt.us
+   (wp-content/themes/ibt/css/output.css).
+
+   Structure modelled on the Lyte Fiber production template
+   (lytefiber.com/wp-content/themes/lyte-fiber/portal.css), which runs on
+   this same platform build. 29 of its 39 selectors are present in IBT's own
+   Basic.css; the rest are unstyled markup IDs that exist on their pages.
+
+   SCOPE: branding only. No content is hidden. Every section, filter, price
+   note and info block the platform renders stays visible, because this
+   demo exists to show IBT what the platform can do.
+
+   !important is used throughout, deliberately. Basic.css styles .isp-box
+   with 38 rules and the order flow almost as heavily; without it most of
+   these declarations lose. This matches how the Lyte template is written.
+
+   The @import MUST stay on line 1 — CSS ignores @import rules that appear
+   after any other declaration.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   TOKENS
+   -------------------------------------------------------------------------- */
+
+:root {
+    --primary:    #00355F;   /* IBT deep navy — headings, buttons, footer   */
+    --secondary:  #007AF3;   /* IBT bright blue — hover, highlights, accent */
+    --tertiary:   #E6F2FE;   /* pale blue wash — table gutters, fills       */
+    --success:    #008754;   /* AA-safe green for promo / availability      */
+    --success-lt: #00B574;   /* IBT brand green, decorative use only        */
+    --ink:        #4F4F4F;   /* body copy                                   */
+    --ink-soft:   #6E7175;   /* muted text, AA-safe on white                */
+    --line:       #D1D1D1;
+    --surface:    #F0F4F8;
+    --black:      #000;
+    --white:      #fff;
+
+    --font-body:  'Roboto', Arial, sans-serif;
+    --font-head:  'Be Vietnam Pro', 'Roboto', Arial, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   BASE TYPOGRAPHY
+   IBT pairs Be Vietnam Pro headings with Roboto body. Portal default is
+   Open Sans at 13–16px, and TemplateFont injects the family name twice into
+   the stack, so both families are forced.
+   -------------------------------------------------------------------------- */
+
+body {
+    font-family: var(--font-body) !important;
+    font-size: 17px !important;
+    color: var(--ink);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-head) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em;
+}
+
+.document {
+    font-family: var(--font-body) !important;
+    color: var(--primary) !important;
+}
+
+#signup-information-content .document {
+    color: var(--white) !important;
+}
+
+/* --------------------------------------------------------------------------
+   TOP BAR
+   -------------------------------------------------------------------------- */
+
+.top-bar {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+}
+
+.top-bar p.viewing-location {
+    color: var(--white) !important;
+    font-weight: 700 !important;
+}
+
+.top-bar p.viewing-location a {
+    color: var(--secondary) !important;
+    font-size: 14px !important;
+}
+
+.top-bar .user-area-login li a.dropdown-toggle {
+    color: var(--secondary) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
+.top-bar .btn.btn-sm.btn-primary {
+    background: transparent !important;
+    color: var(--secondary) !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    border: none !important;
+    transition-property: color, background-color, border-color;
+    transition-duration: .3s;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+.top-bar .btn.btn-sm.btn-primary:hover {
+    background: transparent !important;
+    background-image: none !important;
+    color: var(--white) !important;
+    border: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   NAVBAR
+   .bg-custom carries NavBarBgColorHex — set that to #00355F in Settings so
+   the two agree even if this file is ever removed.
+   -------------------------------------------------------------------------- */
+
+.navbar.bg-custom {
+    background-color: var(--primary) !important;
+}
+
+.navbar .navbar-nav > li > a {
+    border-bottom: 4px solid transparent !important;
+    font-size: 15px !important;
+    transition: border-color .2s ease, color .2s ease;
+}
+
+.navbar .navbar-nav > li > a:hover,
+.navbar .navbar-nav > li > a:focus {
+    border-bottom: 4px solid var(--secondary) !important;
+    color: var(--white) !important;
+}
+
+.navbar-brand img { max-height: 52px; width: auto; }
+
+/* --------------------------------------------------------------------------
+   HERO
+   Overlay is kept (TemplateOverlayOpacity drives it) but tinted navy rather
+   than flat black, so the photo reads as brand rather than grey.
+   -------------------------------------------------------------------------- */
+
+.dark-overlay {
+    background-color: var(--primary) !important;
+}
+
+.main-content .container.h-100 h1,
+#presentation-wrapper h1 {
+    color: var(--white) !important;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, .40);
+}
+
+.main-content .container.h-100 p {
+    color: var(--white) !important;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
+}
+
+hr.divider {
+    border: 0 !important;
+    height: 3px !important;
+    width: 64px;
+    opacity: 1 !important;
+    background-color: var(--secondary) !important;
+    border-radius: 2px;
+    margin-inline: auto;
+}
+
+#search-address-container .btn.btn-primary {
+    background-color: var(--white) !important;
+    color: var(--primary) !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: .375rem !important;
+    padding: .5em 2em !important;
+    width: auto !important;
+    transition-property: color, background-color;
+    transition-duration: .3s;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+#search-address-container .btn.btn-primary:hover {
+    background-color: var(--secondary) !important;
+    color: var(--white) !important;
+}
+
+/* --------------------------------------------------------------------------
+   BUTTONS
+   -------------------------------------------------------------------------- */
+
+.btn {
+    font-family: var(--font-body) !important;
+    font-weight: 700 !important;
+}
+
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--white) !important;
+    border-radius: .375rem !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+    color: var(--white) !important;
+}
+
+/* In the order flow the platform uses .btn-outline-primary as a primary
+   action, so it is filled rather than outlined — same as Lyte. */
+.btn-outline-primary {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    font-weight: 700 !important;
+    border: none !important;
+    border-radius: .375rem !important;
+    margin: 4px 4px 4px 0;
+    transition-property: color, background-color, border-color;
+    transition-duration: .3s;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:not(:disabled):not(.disabled):active {
+    background-color: var(--secondary) !important;
+    color: var(--white) !important;
+}
+
+/* Install-time slot selection — shows which slot is chosen. */
+.btn-check:checked + .btn-outline-primary {
+    background-color: var(--secondary) !important;
+    outline: 2px solid var(--primary) !important;
+    color: var(--white) !important;
+}
+
+/* Keyboard focus. */
+.btn:focus-visible,
+a:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+    outline: 3px solid var(--secondary) !important;
+    outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   CARDS
+   -------------------------------------------------------------------------- */
+
+.card {
+    border-radius: 1rem !important;
+    border: 2px solid var(--secondary) !important;
+    height: 100% !important;
+}
+
+.card-img,
+.card-img-top {
+    border-top-left-radius: 1rem !important;
+    border-top-right-radius: 1rem !important;
+}
+
+.card-body {
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.card-title {
+    font-family: var(--font-head) !important;
+    color: var(--primary) !important;
+    font-weight: 700 !important;
+    font-size: 1.6rem !important;
+    line-height: 1.1;
+}
+
+.card-text { flex-grow: 1; }
+
+/* --------------------------------------------------------------------------
+   PAGE FRAME — sticky footer
+   -------------------------------------------------------------------------- */
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-background {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   SERVICE LIST  (.isp-box is styled by 38 rules in Basic.css)
+   -------------------------------------------------------------------------- */
+
+#service-list {
+    font-family: var(--font-body) !important;
+    color: var(--primary);
+}
+
+.isp-box {
+    border: 1px solid var(--secondary) !important;
+    border-radius: 1rem !important;
+    background-color: var(--white);
+    transition: box-shadow .2s ease, transform .2s ease;
+}
+
+.isp-box:hover {
+    background: var(--white);
+    box-shadow: 0 10px 24px rgba(0, 53, 95, .14);
+    transform: translateY(-2px);
+}
+
+.isp-box .service-title {
+    font-family: var(--font-head) !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+    line-height: 1.1 !important;
+}
+
+.isp-box .details .default-price,
+.price .default-price,
+.price-text .default-price {
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.isp-box .details tr td { vertical-align: middle !important; }
+
+.isp-box .details tr:first-child td.price { font-size: 1.5rem !important; }
+
+.isp-box .details tr td.price span { color: var(--primary) !important; }
+
+.isp-box .details > table {
+    background-color: var(--white);
+    color: var(--primary);
+}
+
+.isp-box .table-striped > tbody > tr:nth-of-type(odd) > * {
+    color: var(--primary);
+}
+
+.isp-box .details .service-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 10px;
+    padding: .5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    transition: background-color .2s ease;
+}
+
+.isp-box .details .service-btn:hover { background-color: var(--secondary); }
+
+/* --------------------------------------------------------------------------
+   PROMOTION BOXES
+   Lyte swaps the icon for a hosted PNG on their own server. IBT has no
+   equivalent asset yet, so the platform icon is kept and only recoloured.
+   -------------------------------------------------------------------------- */
+
+.promotion-box {
+    background-color: var(--white);
+    color: var(--primary);
+    border: 1px solid var(--success) !important;
+    border-radius: .75rem;
+}
+
+.promotion-box .promotion-icon {
+    background: var(--success) !important;
+}
+
+.promotion-box .promotion-content p { font-size: 1rem !important; }
+
+/* --------------------------------------------------------------------------
+   SERVICE DETAIL PAGE
+   -------------------------------------------------------------------------- */
+
+.service-layout h1 {
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+}
+
+.service-layout h2 {
+    font-weight: 700 !important;
+    font-size: 1.5rem !important;
+    color: var(--primary) !important;
+}
+
+.service-layout .details-text p { font-size: 1.25rem; }
+
+.service-layout .details-text .btn.btn-primary {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    border-radius: 10px !important;
+    padding: .5rem 1rem;
+    font-weight: 700;
+}
+
+.service-layout .service-prices table td.price span {
+    color: var(--primary) !important;
+}
+
+.service-layout .service-prices table tr:nth-child(1) td.price {
+    font-size: 1.5rem;
+}
+
+/* Bulleted feature lists — a coloured marker instead of a hosted image, so
+   there is no dependency on an external asset. */
+.service-layout .details-text ul,
+.my-pages .surveyForm ul {
+    margin: 1.75rem 0;
+    padding-left: 1.3em !important;
+    list-style: none;
+}
+
+.service-layout .details-text ul li,
+.my-pages .surveyForm ul li {
+    margin-bottom: .4em !important;
+    position: relative;
+    padding-left: .5em;
+}
+
+.service-layout .details-text ul li:before,
+.my-pages .surveyForm ul li:before {
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: .55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--success);
+}
+
+.service-layout .details-text ul.terms { padding-left: 0 !important; }
+.service-layout .details-text ul.terms li { padding-left: 0; }
+.service-layout .details-text ul.terms li:before { content: none; }
+
+/* --------------------------------------------------------------------------
+   ORDER FLOW / WIZARD
+   -------------------------------------------------------------------------- */
+
+#wizard span.count {
+    border: 4px solid var(--primary);
+    color: var(--primary);
+}
+
+#wizard span.text { color: var(--primary); }
+
+.order-content {
+    border: 2px solid var(--secondary);
+    border-radius: 1rem;
+    background-color: var(--white);
+    padding: 1em 1.5rem;
+}
+
+.order-content h1,
+.order-content h2,
+.order-content h3,
+.order-content h4,
+.order-content h5 {
+    font-family: var(--font-head) !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+}
+
+.order .order-content label.form-label,
+#customerDetails label.form-label,
+label[for="CustomerTypeId"] {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+}
+
+.order-content .document p,
+.order-content.order-done p,
+#RegisterForm,
+#RegisterForm .document {
+    color: var(--primary) !important;
+}
+
+.order-content .alert.alert-info { color: var(--primary) !important; }
+
+/* Summary tables — the pale wash doubles as the cell gutter. */
+.order-content table.table-bordered {
+    color: var(--primary);
+    border-top: .5rem solid var(--tertiary);
+    border-right: 1.25rem solid var(--tertiary);
+    border-bottom: .5rem solid var(--tertiary);
+    border-left: 1.25rem solid var(--tertiary);
+}
+
+.order-content table.table-bordered > :not(caption) > * {
+    border-width: 0 0 1px 0 !important;
+}
+
+.order-content table.table-bordered > :not(caption) > *:last-child {
+    border-width: 0 !important;
+}
+
+.order-content table.table-bordered > :not(caption) > * > * {
+    padding: .8rem 0;
+    border-width: 0 !important;
+}
+
+.order-content table.table-bordered tbody {
+    background: var(--tertiary);
+    border: none;
+}
+
+#SummaryForm h3 {
+    font-family: var(--font-head) !important;
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+    margin-bottom: .5rem !important;
+}
+
+.section-page.order table.table-striped > tbody > tr:nth-of-type(odd) > * {
+    --bs-table-accent-bg: none !important;
+    color: var(--primary) !important;
+}
+
+.section-page.order table.table-striped tr:first-child td:first-child {
+    font-weight: 700 !important;
+}
+
+span.has-error {
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
+/* --------------------------------------------------------------------------
+   CONFIRMATION / THANK YOU
+   -------------------------------------------------------------------------- */
+
+.thank-you {
+    max-width: 1024px !important;
+    margin: 4em auto !important;
+    background-color: var(--tertiary) !important;
+    color: var(--primary) !important;
+    border: 2px solid var(--secondary) !important;
+    padding: 2rem !important;
+    border-radius: 1rem !important;
+}
+
+.thank-you h1,
+.thank-you h2,
+.thank-you h3 {
+    font-family: var(--font-head) !important;
+    font-size: 2.5em !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    color: var(--primary) !important;
+}
+
+.thank-you p {
+    font-size: 1.2em !important;
+    text-align: center !important;
+    color: var(--primary) !important;
+}
+
+#signup-available {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   MY PAGES
+   -------------------------------------------------------------------------- */
+
+.my-pages .card { margin-top: 15px !important; }
+
+/* Change notices read as warnings, not errors. */
+.my-pages .alert.alert-danger {
+    --bs-alert-color: #664d03 !important;
+    --bs-alert-bg: #fff3cd !important;
+    --bs-alert-border-color: #ffecb5 !important;
+}
+
+/* --------------------------------------------------------------------------
+   FORMS
+   -------------------------------------------------------------------------- */
+
+.form-control,
+.form-select {
+    border: 1px solid var(--line);
+    border-radius: .375rem;
+    color: var(--ink);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--secondary) !important;
+    box-shadow: 0 0 0 3px rgba(0, 122, 243, .18) !important;
+}
+
+::placeholder { color: var(--ink-soft); opacity: 1; }
+
+.req { color: #C0392B; font-weight: 700; }
+
+/* Install date picker. */
+.ui-widget-content .available-day .ui-state-default {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+}
+
+.ui-widget-content .available-day .ui-state-active {
+    background-color: var(--secondary) !important;
+}
+
+.section-page.order table.ui-datepicker-calendar tr td:first-child {
+    width: auto;
+}
+
+/* Broadband nutrition label — keep native disc bullets. */
+#broadband-label ul {
+    list-style: disc !important;
+    padding-left: 0 !important;
+    margin: .4rem 1.5rem !important;
+}
+
+#broadband-label ul li:before { content: none; display: none !important; }
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   Basic.css sets #footer{background:#2E2E2E; color:#FFF} and
+   #footer a{color:inherit}. Only the background is swapped — the text is
+   already white and must stay white.
+   -------------------------------------------------------------------------- */
+
+#footer {
+    padding: 20px 0 0 0;
+    background: var(--primary) !important;
+    border-top: 0 !important;
+    flex-shrink: 0;
+}
+
+#footer a:hover { color: var(--secondary) !important; }
+
+/* Social icons are a CSS sprite (social-sprite.webp), not an icon font —
+   `color` does nothing on them, only opacity is usable. */
+#footer .social-media-icon a { opacity: .85; transition: opacity .15s ease; }
+#footer .social-media-icon a:hover { opacity: 1; }
+
+.powered-by {
+    background-color: #002843 !important;
+    color: rgba(255, 255, 255, .70);
+    font-size: .8125rem;
+}
+
+.powered-by a { color: var(--white); }
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+
+@media only screen and (max-width: 992px) {
+    #service-list { flex-direction: column; }
+
+    #service-list > div {
+        margin-top: 2rem !important;
+        border-radius: 1.5rem !important;
+        border: 1px solid var(--secondary) !important;
+    }
+}
+
+@media screen and (max-width: 1040px) {
+    .thank-you { margin: 4em !important; }
+}
+
+@media screen and (max-width: 640px) {
+    .thank-you { margin: 1em !important; }
+    .navbar-brand img { max-height: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
