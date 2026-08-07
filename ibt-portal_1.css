@@ -3,7 +3,7 @@
    --------------------------------------------------------------------------
    Target:   https://ibttest.broadbandportal.net   (COS Systems portal)
    Setting:  TemplateCSSURL
-   Version:  4.2
+   Version:  4.3
 
    Brand values sampled from the live IBT theme at https://ibt.us
    (wp-content/themes/ibt/css/output.css).
@@ -274,8 +274,24 @@ button#addObjSubmitBtn.btn.btn-primary:hover {
     color: var(--white) !important;
 }
 
-/* Give the search block breathing room in the hero. */
-#search-wrapper { padding-block: .5rem 2rem; }
+/* ---- Pull the search up under the hero copy -----------------------------
+   Out of the box there is ~158px of dead space between the last line of
+   hero text and the address field, stacked out of five separate Bootstrap
+   utility margins. Tightened to ~38px so the copy reads as a prompt for
+   the search rather than a separate block.
+   Every rule below is scoped to the hero so other pages keep their spacing.
+   ------------------------------------------------------------------------ */
+
+.main-content .presentation-wrapper p.mb-5 { margin-bottom: .75rem !important; }
+.main-content .container.h-100 > .row.py-4 { padding-bottom: 0 !important; }
+
+#search-address-container { margin-top: -2.25rem !important; }
+#search-address-container .row.mt-4 { margin-top: 0 !important; }
+
+#search-wrapper { padding-top: 0 !important; padding-bottom: 1rem !important; }
+
+.autocomplete-input.mt-4 { margin-top: .5rem !important; }
+.autocomplete-input-container { margin-bottom: 1.5rem !important; }
 
 /* --------------------------------------------------------------------------
    BUTTONS
