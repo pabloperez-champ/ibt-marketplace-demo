@@ -3,7 +3,7 @@
    --------------------------------------------------------------------------
    Target:   https://ibttest.broadbandportal.net   (COS Systems portal)
    Setting:  TemplateCSSURL
-   Version:  4.1
+   Version:  4.2
 
    Brand values sampled from the live IBT theme at https://ibt.us
    (wp-content/themes/ibt/css/output.css).
@@ -171,10 +171,22 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: 0 2px 14px rgba(0, 0, 0, .40);
 }
 
-.main-content .container.h-100 p {
+.main-content .container.h-100 p,
+.presentation-wrapper p {
     color: var(--white) !important;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, .45);
+    font-size: 1.15rem !important;
+    max-width: 46rem;
+    margin-inline: auto;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .55);
 }
+
+/* More room so the headline and search aren't crowded against the photo.
+   NOTE: the padding goes on the inner container, NOT on .main-content —
+   .bg-img.front-page-bg-image is absolutely positioned against
+   .main-content's padding box, so padding there leaves a bare strip above
+   and below the photo. */
+.main-content .container.h-100 { padding-block: 3rem !important; }
+.main-content .container.h-100 h1 { font-size: clamp(2.25rem, 4.5vw, 3.5rem) !important; }
 
 hr.divider {
     border: 0 !important;
@@ -186,33 +198,84 @@ hr.divider {
     margin-inline: auto;
 }
 
-/* The address-search submit button. On this build it sits in
-   #addObjSubmitBtn; #search-address-container is the id used on other
-   COS tenants. Both are targeted so the rule survives either layout.
-   White on the hero photo, with a shadow so it still reads as a button
-   when no background image is set. */
-#search-address-container .btn.btn-primary,
-#addObjSubmitBtn .btn.btn-primary,
-.main-content .btn.btn-primary {
-    background-color: var(--white) !important;
-    color: var(--primary) !important;
+/* ---- ADDRESS SEARCH: the primary call to action -------------------------
+   Real markup on this build:
+     #search-wrapper > .autocomplete-input-container > .autocomplete-input
+       > .mb-1 > input#address-input.form-control
+   and the submit is button#addObjSubmitBtn (inside the "can't find your
+   address" card, .alert-info > #add-obj-form).
+   Everything below exists to make the search the loudest thing on the page.
+   ------------------------------------------------------------------------ */
+
+.autocomplete-input-container {
+    max-width: 680px;
+    margin-inline: auto;
+}
+
+#address-input.form-control,
+.autocomplete-input input.form-control {
+    height: auto !important;
+    padding: 1.05rem 1.5rem !important;
+    font-size: 1.15rem !important;
+    border: 0 !important;
+    border-radius: .5rem !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .28) !important;
+}
+
+#address-input.form-control:focus,
+.autocomplete-input input.form-control:focus {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .28),
+                0 0 0 4px rgba(0, 122, 243, .55) !important;
+}
+
+#address-input::placeholder { font-size: 1.05rem; color: var(--ink-soft); }
+
+/* THE primary CTA. On this build the hero's Confirm button is #submitBtn —
+   NOT #addObjSubmitBtn, which is the secondary "add an address we don't
+   have" action further down. Solid brand blue so it reads as an action
+   rather than a disabled control. */
+#submitBtn,
+button#submitBtn.btn.btn-primary,
+#search-address-container .btn.btn-primary {
+    background-color: var(--secondary) !important;
+    color: var(--white) !important;
     font-weight: 700 !important;
+    font-size: 1.05rem !important;
     border: none !important;
-    border-radius: .375rem !important;
-    padding: .5em 2em !important;
+    border-radius: .5rem !important;
+    padding: .75em 2.75em !important;
     width: auto !important;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, .22) !important;
-    transition-property: color, background-color;
-    transition-duration: .3s;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .28) !important;
+    transition-property: color, background-color, transform;
+    transition-duration: .2s;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
 
-#search-address-container .btn.btn-primary:hover,
-#addObjSubmitBtn .btn.btn-primary:hover,
-.main-content .btn.btn-primary:hover {
-    background-color: var(--secondary) !important;
+#submitBtn:hover,
+button#submitBtn.btn.btn-primary:hover,
+#search-address-container .btn.btn-primary:hover {
+    background-color: var(--white) !important;
+    color: var(--primary) !important;
+    transform: translateY(-1px);
+}
+
+/* Secondary action — the "can't find your address" submit. Outlined so it
+   doesn't compete with the main search CTA. */
+button#addObjSubmitBtn.btn.btn-primary {
+    background-color: transparent !important;
+    color: var(--primary) !important;
+    border: 2px solid var(--primary) !important;
+    border-radius: .5rem !important;
+    font-weight: 700 !important;
+}
+
+button#addObjSubmitBtn.btn.btn-primary:hover {
+    background-color: var(--primary) !important;
     color: var(--white) !important;
 }
+
+/* Give the search block breathing room in the hero. */
+#search-wrapper { padding-block: .5rem 2rem; }
 
 /* --------------------------------------------------------------------------
    BUTTONS
@@ -684,13 +747,19 @@ span.has-error {
 #footer .social-media-icon a { opacity: .85; transition: opacity .15s ease; }
 #footer .social-media-icon a:hover { opacity: 1; }
 
+/* .powered-by is nested INSIDE <footer>, so giving it its own darker tone
+   produced a visible two-tone band. Same navy, separated by a hairline. */
 .powered-by {
-    background-color: #002843 !important;
-    color: rgba(255, 255, 255, .70);
+    background-color: transparent !important;
+    border-top: 1px solid rgba(255, 255, 255, .15);
+    color: rgba(255, 255, 255, .65);
     font-size: .8125rem;
+    margin-top: 1.25rem;
+    padding-block: .85rem;
 }
 
-.powered-by a { color: var(--white); }
+.powered-by a { color: rgba(255, 255, 255, .85); }
+.powered-by a:hover { color: var(--white); }
 
 /* --------------------------------------------------------------------------
    COOKIE CONSENT  (Osano cookieconsent — .cc-window / .cc-btn.cc-dismiss)
