@@ -3,7 +3,7 @@
    --------------------------------------------------------------------------
    Target:   https://ibttest.broadbandportal.net   (COS Systems portal)
    Setting:  TemplateCSSURL
-   Version:  4.0
+   Version:  4.1
 
    Brand values sampled from the live IBT theme at https://ibt.us
    (wp-content/themes/ibt/css/output.css).
@@ -129,16 +129,28 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--primary) !important;
 }
 
-.navbar .navbar-nav > li > a {
+/* NavBarTextColorHex injects #252525 onto these links, which is unreadable
+   on the navy bar. Forced white here so the file is correct on its own even
+   if the setting is left at its default. */
+.navbar .navbar-nav > li > a,
+.navbar .nav-link,
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--white) !important;
     border-bottom: 4px solid transparent !important;
     font-size: 15px !important;
     transition: border-color .2s ease, color .2s ease;
 }
 
 .navbar .navbar-nav > li > a:hover,
-.navbar .navbar-nav > li > a:focus {
+.navbar .navbar-nav > li > a:focus,
+.navbar .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:hover {
     border-bottom: 4px solid var(--secondary) !important;
     color: var(--white) !important;
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, .4) !important;
 }
 
 .navbar-brand img { max-height: 52px; width: auto; }
@@ -174,7 +186,14 @@ hr.divider {
     margin-inline: auto;
 }
 
-#search-address-container .btn.btn-primary {
+/* The address-search submit button. On this build it sits in
+   #addObjSubmitBtn; #search-address-container is the id used on other
+   COS tenants. Both are targeted so the rule survives either layout.
+   White on the hero photo, with a shadow so it still reads as a button
+   when no background image is set. */
+#search-address-container .btn.btn-primary,
+#addObjSubmitBtn .btn.btn-primary,
+.main-content .btn.btn-primary {
     background-color: var(--white) !important;
     color: var(--primary) !important;
     font-weight: 700 !important;
@@ -182,12 +201,15 @@ hr.divider {
     border-radius: .375rem !important;
     padding: .5em 2em !important;
     width: auto !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .22) !important;
     transition-property: color, background-color;
     transition-duration: .3s;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
 
-#search-address-container .btn.btn-primary:hover {
+#search-address-container .btn.btn-primary:hover,
+#addObjSubmitBtn .btn.btn-primary:hover,
+.main-content .btn.btn-primary:hover {
     background-color: var(--secondary) !important;
     color: var(--white) !important;
 }
@@ -669,6 +691,39 @@ span.has-error {
 }
 
 .powered-by a { color: var(--white); }
+
+/* --------------------------------------------------------------------------
+   COOKIE CONSENT  (Osano cookieconsent — .cc-window / .cc-btn.cc-dismiss)
+   Default bar is #237AFC, a blue that clashes with the IBT palette.
+   -------------------------------------------------------------------------- */
+
+.cc-window.cc-banner {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    font-family: var(--font-body) !important;
+    font-size: .875rem;
+    padding: 1rem 1.5rem;
+}
+
+.cc-message { color: var(--white) !important; }
+
+.cc-link {
+    color: var(--white) !important;
+    opacity: .9;
+    text-decoration: underline;
+}
+
+.cc-btn.cc-dismiss {
+    background-color: var(--success) !important;
+    color: var(--white) !important;
+    border: 0 !important;
+    border-radius: .375rem !important;
+    font-weight: 700;
+    padding: .5rem 1.75rem;
+    text-decoration: none;
+}
+
+.cc-btn.cc-dismiss:hover { background-color: var(--success-lt) !important; }
 
 /* --------------------------------------------------------------------------
    RESPONSIVE
