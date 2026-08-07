@@ -3,7 +3,7 @@
    --------------------------------------------------------------------------
    Target:   https://ibttest.broadbandportal.net   (COS Systems portal)
    Setting:  TemplateCSSURL
-   Version:  4.3
+   Version:  4.4
 
    Brand values sampled from the live IBT theme at https://ibt.us
    (wp-content/themes/ibt/css/output.css).
@@ -72,9 +72,21 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--primary) !important;
 }
 
-#signup-information-content .document {
-    color: var(--white) !important;
+/* .document is the CMS content-block wrapper and it appears in the footer too,
+   where the background is navy — the rule above painted that text navy-on-navy
+   and made the footer heading invisible. Content blocks inside dark chrome
+   must inherit, not take the primary colour. */
+#footer .document,
+#footer .document *,
+.powered-by .document,
+.powered-by .document * {
+    color: inherit !important;
 }
+
+/* REMOVED in v4.4: `#signup-information-content .document { color: white }`.
+   That came from the Lyte Fiber template, where the block sits on a coloured
+   panel. IBT has no dark content panels, so it was a latent white-on-white
+   bug waiting for whichever page renders that container. */
 
 /* --------------------------------------------------------------------------
    TOP BAR
