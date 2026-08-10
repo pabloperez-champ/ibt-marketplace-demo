@@ -661,6 +661,18 @@ span.has-error {
     font-weight: 700 !important;
 }
 
+/* Empty survey completion page */
+.order-content.order-done {
+    border: 0 !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.order-content.order-done > .col {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
 /* --------------------------------------------------------------------------
    CONFIRMATION / THANK YOU
    -------------------------------------------------------------------------- */
