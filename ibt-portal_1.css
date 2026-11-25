@@ -882,6 +882,10 @@ h1, h2, h3 { letter-spacing: -0.025em !important; }
 /* ---- 1. Header: slim, white, frosted, sticky ---------------------------- */
 /* Top bar holds the only Login link — keep it, just make it a thin strip. */
 .top-bar { padding-block: .2rem !important; font-size: 13px !important; }
+/* The navbar below is sticky at z-index 1030. Without a higher z-index here,
+   the top bar's Login / Customer Portal dropdown opens BEHIND the navbar and
+   looks empty. 1031 keeps it above the navbar and below modals (1050+). */
+.top-bar { z-index: 1031; }
 .navbar.bg-custom {
     position: sticky !important; top: 0; z-index: 1030;
     background: rgba(255, 255, 255, .82) !important;
